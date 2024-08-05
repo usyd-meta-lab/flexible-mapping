@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>USYD Cognitive Flexibility</title>
+    <script src="http://cogflex.com.au/jspsych/jspsych 6.3.1/jspsych.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jcanvas/21.0.1/min/jcanvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js'></script>
+    <script src="http://cogflex.com.au/jspsych/jspsych 6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="http://cogflex.com.au/jspsych/jspsych 6.3.1/plugins/jspsych-html-button-response.js"></script>
+    <script src="http://cogflex.com.au/jspsych/jspsych 6.3.1/plugins/jspsych-fullscreen.js"></script>
+    <script src="http://cogflex.com.au/jspsych/jspsych%206.3.1/plugins/jspsych-preload.js"></script>
+    <script src="http://cogflex.com.au/jspsych/jspsych 6.3.1/plugins/jspsych-survey-text.js"></script>
+    <script src="http://cogflex.com.au/jspsych/jspsych 6.3.1/custom-plugins/jspsych-survey-demographics.js"></script>
+    <link href="css/custom.css" rel="stylesheet" type="text/css"></link>
+    <link href="css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <script src="js/flexible-map.js"></script>
+    <script src="js/confidence-rating.js"></script>
+    <link href="http://cogflex.com.au/jspsych/jspsych 6.3.1/jspsych.css" rel="stylesheet" type="text/css" />
+    <link href="css/custom.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  </body>
+  <script>
+
+
+
+//**********************//
+// Flexible Mapping
+//**********************//
+
+// Experiment Paramaters
+  experimentname = "FlexMap" // Should correspond to the foldername on the cogflex server
+  user = 'kit' // Should correspind to the user on the cogflex server
+  ID = jsPsych.randomization.randomID();
+  PID = jsPsych.data.urlVariables();
+  end_message = "The study is complete. Thank you for your participation. Press OK to return to Prolific";
+  eta = 15
+  goal = "rearrange sequences of shapes in your mind."
+
+
+//**********************//
+// Trial types
+//**********************//
+
+// Fullscreen
+  var full = {
+  type: 'fullscreen',
+    fullscreen_mode: true
+  }
+
+
+
+
+
+  var CR_trial = {
+          type: 'conf-rate',
+          stimulus: jsPsych.timelineVariable('stimulus'),
+          item: jsPsych.timelineVariable('item'),
+          stimulus_height: 100,
+          choices: ['cmd+p'],
+          labels: ['Not Confident', 'Confident'],
+          prompt: "How confident are you that you will solve this item?",
+          slider_start:50,
+          min: 0,
+          max: 100,
+          step: 1,
+          on_finish: function(data){
+
+          }
+
+  }
+
+
+var flex_map = {
+        type: 'flex-map',
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        item: jsPsych.timelineVariable('item'),
+        stimulus_height: 100,
+        choices: ['cmd+p']
+}
+
+
+
+
+var flex_block = {
+  timeline: [CR_trial, flex_map],
+  timeline_variables: [
+    {stimulus: ['assets/img/choice_1_1.png', 'assets/img/choice_1_2.png', 'assets/img/choice_1_3.png', 'assets/img/choice_1_4.png'], item: ['assets/img/stim_1_1.png','assets/img/stim_1_2.png','assets/img/stim_1_3.png']},
+    {stimulus: ['assets/img/choice_2_1.png', 'assets/img/choice_2_2.png', 'assets/img/choice_2_3.png', 'assets/img/choice_2_4.png'], item: ['assets/img/stim_2_1.png','assets/img/stim_2_2.png','assets/img/stim_2_3.png']},
+{stimulus: ['assets/img/choice_3_1.png', 'assets/img/choice_3_2.png', 'assets/img/choice_3_3.png', 'assets/img/choice_3_4.png'], item: ['assets/img/stim_3_1.png','assets/img/stim_3_2.png','assets/img/stim_3_3.png']},
+{stimulus: ['assets/img/choice_4_1.png', 'assets/img/choice_4_2.png', 'assets/img/choice_4_3.png', 'assets/img/choice_4_4.png'], item: ['assets/img/stim_4_1.png','assets/img/stim_4_2.png','assets/img/stim_4_3.png']},
+{stimulus: ['assets/img/choice_5_1.png', 'assets/img/choice_5_2.png', 'assets/img/choice_5_3.png', 'assets/img/choice_5_4.png'], item: ['assets/img/stim_5_1.png','assets/img/stim_5_2.png','assets/img/stim_5_3.png']},
+{stimulus: ['assets/img/choice_6_1.png', 'assets/img/choice_6_2.png', 'assets/img/choice_6_3.png', 'assets/img/choice_6_4.png'], item: ['assets/img/stim_6_1.png','assets/img/stim_6_2.png','assets/img/stim_6_3.png']},
+{stimulus: ['assets/img/choice_7_1.png', 'assets/img/choice_7_2.png', 'assets/img/choice_7_3.png', 'assets/img/choice_7_4.png'], item: ['assets/img/stim_7_1.png','assets/img/stim_7_2.png','assets/img/stim_7_3.png']},
+{stimulus: ['assets/img/choice_8_1.png', 'assets/img/choice_8_2.png', 'assets/img/choice_8_3.png', 'assets/img/choice_8_4.png'], item: ['assets/img/stim_8_1.png','assets/img/stim_8_2.png','assets/img/stim_8_3.png']},
+{stimulus: ['assets/img/choice_9_1.png', 'assets/img/choice_9_2.png', 'assets/img/choice_9_3.png', 'assets/img/choice_9_4.png'], item: ['assets/img/stim_9_1.png','assets/img/stim_9_2.png','assets/img/stim_9_3.png']},
+{stimulus: ['assets/img/choice_10_1.png', 'assets/img/choice_10_2.png', 'assets/img/choice_10_3.png', 'assets/img/choice_10_4.png'], item: ['assets/img/stim_10_1.png','assets/img/stim_10_2.png','assets/img/stim_10_3.png']},
+{stimulus: ['assets/img/choice_11_1.png', 'assets/img/choice_11_2.png', 'assets/img/choice_11_3.png', 'assets/img/choice_11_4.png'], item: ['assets/img/stim_11_1.png','assets/img/stim_11_2.png','assets/img/stim_11_3.png']},
+{stimulus: ['assets/img/choice_12_1.png', 'assets/img/choice_12_2.png', 'assets/img/choice_12_3.png', 'assets/img/choice_12_4.png'], item: ['assets/img/stim_12_1.png','assets/img/stim_12_2.png','assets/img/stim_12_3.png']},
+{stimulus: ['assets/img/choice_13_1.png', 'assets/img/choice_13_2.png', 'assets/img/choice_13_3.png', 'assets/img/choice_13_4.png'], item: ['assets/img/stim_13_1.png','assets/img/stim_13_2.png','assets/img/stim_13_3.png']},
+{stimulus: ['assets/img/choice_14_1.png', 'assets/img/choice_14_2.png', 'assets/img/choice_14_3.png', 'assets/img/choice_14_4.png'], item: ['assets/img/stim_14_1.png','assets/img/stim_14_2.png','assets/img/stim_14_3.png']},
+{stimulus: ['assets/img/choice_15_1.png', 'assets/img/choice_15_2.png', 'assets/img/choice_15_3.png', 'assets/img/choice_15_4.png'], item: ['assets/img/stim_15_1.png','assets/img/stim_15_2.png','assets/img/stim_15_3.png']},
+{stimulus: ['assets/img/choice_16_1.png', 'assets/img/choice_16_2.png', 'assets/img/choice_16_3.png', 'assets/img/choice_16_4.png'], item: ['assets/img/stim_16_1.png','assets/img/stim_16_2.png','assets/img/stim_16_3.png']},
+{stimulus: ['assets/img/choice_17_1.png', 'assets/img/choice_17_2.png', 'assets/img/choice_17_3.png', 'assets/img/choice_17_4.png'], item: ['assets/img/stim_17_1.png','assets/img/stim_17_2.png','assets/img/stim_17_3.png']},
+{stimulus: ['assets/img/choice_18_1.png', 'assets/img/choice_18_2.png', 'assets/img/choice_18_3.png', 'assets/img/choice_18_4.png'], item: ['assets/img/stim_18_1.png','assets/img/stim_18_2.png','assets/img/stim_18_3.png']},
+{stimulus: ['assets/img/choice_19_1.png', 'assets/img/choice_19_2.png', 'assets/img/choice_19_3.png', 'assets/img/choice_19_4.png'], item: ['assets/img/stim_19_1.png','assets/img/stim_19_2.png','assets/img/stim_19_3.png']},
+{stimulus: ['assets/img/choice_20_1.png', 'assets/img/choice_20_2.png', 'assets/img/choice_20_3.png', 'assets/img/choice_20_4.png'], item: ['assets/img/stim_20_1.png','assets/img/stim_20_2.png','assets/img/stim_20_3.png']},
+{stimulus: ['assets/img/choice_21_1.png', 'assets/img/choice_21_2.png', 'assets/img/choice_21_3.png', 'assets/img/choice_21_4.png'], item: ['assets/img/stim_21_1.png','assets/img/stim_21_2.png','assets/img/stim_21_3.png']},
+{stimulus: ['assets/img/choice_22_1.png', 'assets/img/choice_22_2.png', 'assets/img/choice_22_3.png', 'assets/img/choice_22_4.png'], item: ['assets/img/stim_22_1.png','assets/img/stim_22_2.png','assets/img/stim_22_3.png']},
+{stimulus: ['assets/img/choice_23_1.png', 'assets/img/choice_23_2.png', 'assets/img/choice_23_3.png', 'assets/img/choice_23_4.png'], item: ['assets/img/stim_23_1.png','assets/img/stim_23_2.png','assets/img/stim_23_3.png']},
+{stimulus: ['assets/img/choice_24_1.png', 'assets/img/choice_24_2.png', 'assets/img/choice_24_3.png', 'assets/img/choice_24_4.png'], item: ['assets/img/stim_24_1.png','assets/img/stim_24_2.png','assets/img/stim_24_3.png']},
+{stimulus: ['assets/img/choice_25_1.png', 'assets/img/choice_25_2.png', 'assets/img/choice_25_3.png', 'assets/img/choice_25_4.png'], item: ['assets/img/stim_25_1.png','assets/img/stim_25_2.png','assets/img/stim_25_3.png']},
+{stimulus: ['assets/img/choice_26_1.png', 'assets/img/choice_26_2.png', 'assets/img/choice_26_3.png', 'assets/img/choice_26_4.png'], item: ['assets/img/stim_26_1.png','assets/img/stim_26_2.png','assets/img/stim_26_3.png']},
+{stimulus: ['assets/img/choice_27_1.png', 'assets/img/choice_27_2.png', 'assets/img/choice_27_3.png', 'assets/img/choice_27_4.png'], item: ['assets/img/stim_27_1.png','assets/img/stim_27_2.png','assets/img/stim_27_3.png']},
+{stimulus: ['assets/img/choice_28_1.png', 'assets/img/choice_28_2.png', 'assets/img/choice_28_3.png', 'assets/img/choice_28_4.png'], item: ['assets/img/stim_28_1.png','assets/img/stim_28_2.png','assets/img/stim_28_3.png']},
+{stimulus: ['assets/img/choice_29_1.png', 'assets/img/choice_29_2.png', 'assets/img/choice_29_3.png', 'assets/img/choice_29_4.png'], item: ['assets/img/stim_29_1.png','assets/img/stim_29_2.png','assets/img/stim_29_3.png']},
+{stimulus: ['assets/img/choice_30_1.png', 'assets/img/choice_30_2.png', 'assets/img/choice_30_3.png', 'assets/img/choice_30_4.png'], item: ['assets/img/stim_30_1.png','assets/img/stim_30_2.png','assets/img/stim_30_3.png']},
+{stimulus: ['assets/img/choice_31_1.png', 'assets/img/choice_31_2.png', 'assets/img/choice_31_3.png', 'assets/img/choice_31_4.png'], item: ['assets/img/stim_31_1.png','assets/img/stim_31_2.png','assets/img/stim_31_3.png']},
+{stimulus: ['assets/img/choice_32_1.png', 'assets/img/choice_32_2.png', 'assets/img/choice_32_3.png', 'assets/img/choice_32_4.png'], item: ['assets/img/stim_32_1.png','assets/img/stim_32_2.png','assets/img/stim_32_3.png']},
+{stimulus: ['assets/img/choice_33_1.png', 'assets/img/choice_33_2.png', 'assets/img/choice_33_3.png', 'assets/img/choice_33_4.png'], item: ['assets/img/stim_33_1.png','assets/img/stim_33_2.png','assets/img/stim_33_3.png']},
+{stimulus: ['assets/img/choice_34_1.png', 'assets/img/choice_34_2.png', 'assets/img/choice_34_3.png', 'assets/img/choice_34_4.png'], item: ['assets/img/stim_34_1.png','assets/img/stim_34_2.png','assets/img/stim_34_3.png']},
+{stimulus: ['assets/img/choice_35_1.png', 'assets/img/choice_35_2.png', 'assets/img/choice_35_3.png', 'assets/img/choice_35_4.png'], item: ['assets/img/stim_35_1.png','assets/img/stim_35_2.png','assets/img/stim_35_3.png']},
+{stimulus: ['assets/img/choice_36_1.png', 'assets/img/choice_36_2.png', 'assets/img/choice_36_3.png', 'assets/img/choice_36_4.png'], item: ['assets/img/stim_36_1.png','assets/img/stim_36_2.png','assets/img/stim_36_3.png']}
+  ]
+}
+
+
+
+
+//**********************//
+// Experiment
+//**********************//
+
+
+ jsPsych.init({
+        timeline: [flex_block],
+        on_timeline_start: function(){
+            trialnum = 1
+        },
+        on_finish: function(data){
+     //jsPsych.data.displayData('csv');
+     var filestore = ID + '.csv'; var all_data = jsPsych.data.get(); saveData(filestore, experimentname, all_data.csv()); alert(end_message); goHome()}
+    });
+
+
+
+//**********************//
+// SAVING
+//**********************//
+
+// Add properties
+jsPsych.data.addProperties({ID: ID});
+
+// Save
+function saveData(filename, experiment, filedata){
+    	var filename = '../users/'+user+'/' + experiment + '/Data/' + filename;
+       $.ajax({
+          type:'post',
+          cache: false,
+          url: 'http://cogflex.com.au/jspsych/jsPsych.php', // this is the path to the above PHP script
+          data: {filename: filename, filedata: filedata}
+       });
+    }
+
+
+
+
+
+
+  </script>
+</html>
